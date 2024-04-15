@@ -440,6 +440,11 @@ public class Conversation implements Listener {
         }
     }
 
+    /**
+     * Send message to player, bypassing any message delaying if needed
+     *
+     * @param message The message to send
+     */
     public void sendMessage(final BaseComponent... message) {
         if (interceptor == null) {
             player.spigot().sendMessage(message);
@@ -448,6 +453,11 @@ public class Conversation implements Listener {
         }
     }
 
+    /**
+     * Send message to player, bypassing any message delaying if needed
+     *
+     * @param message The message to send
+     */
     public void sendMessage(final ComponentLike message) {
         if (interceptor == null) {
             player.sendMessage(message);
