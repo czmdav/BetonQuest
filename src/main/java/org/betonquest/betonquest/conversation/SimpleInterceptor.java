@@ -1,13 +1,9 @@
 package org.betonquest.betonquest.conversation;
 
-import net.kyori.adventure.text.ComponentLike;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.profiles.OnlineProfile;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
@@ -18,35 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("PMD.CommentRequired")
-public class SimpleInterceptor implements Interceptor, Listener {
-    protected final Conversation conv;
-
-    protected final Player player;
-
+public class SimpleInterceptor extends Interceptor implements Listener {
     private final List<String> messages = new ArrayList<>();
 
     public SimpleInterceptor(final Conversation conv, final OnlineProfile onlineProfile) throws QuestRuntimeException {
-        this.conv = conv;
-        this.player = onlineProfile.getPlayer();
+        super(conv, onlineProfile.getPlayer());
         Bukkit.getPluginManager().registerEvents(this, BetonQuest.getInstance());
-    }
-
-    /**
-     * Send message, bypassing Interceptor
-     */
-    @Override
-    public void sendMessage(final String message) {
-        player.spigot().sendMessage(TextComponent.fromLegacyText(message));
-    }
-
-    @Override
-    public void sendMessage(final ComponentLike message) {
-        player.sendMessage(message);
-    }
-
-    @Override
-    public void sendMessage(final BaseComponent... message) {
-        player.spigot().sendMessage(message);
     }
 
     /**

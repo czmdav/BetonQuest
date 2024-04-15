@@ -16,7 +16,7 @@ import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.profiles.OnlineProfile;
 import org.betonquest.betonquest.conversation.Conversation;
 import org.betonquest.betonquest.conversation.Interceptor;
-import org.bukkit.entity.Player;
+import org.betonquest.betonquest.utils.AdventureComponentConverter;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * Provides a packet interceptor that catches all chat packets sent to a player.
  */
 @SuppressWarnings("PMD.CommentRequired")
-public class PacketInterceptor implements Interceptor, Listener {
+public class PacketInterceptor extends Interceptor implements Listener {
 
     /**
      * A prefix that marks messages to be ignored by this interceptor.
@@ -36,10 +36,6 @@ public class PacketInterceptor implements Interceptor, Listener {
      * The actual tags colors are the hex-representation of the ASCII representing the string '_bq_'.
      */
     private static final String MESSAGE_PASSTHROUGH_TAG = "§5§f§6§2§7§1§5§f";
-
-    protected final Conversation conv;
-
-    protected final Player player;
 
     private final List<PacketContainer> messages;
 
@@ -49,8 +45,7 @@ public class PacketInterceptor implements Interceptor, Listener {
 
     @SuppressWarnings("PMD.CognitiveComplexity")
     public PacketInterceptor(final Conversation conv, final OnlineProfile onlineProfile) {
-        this.conv = conv;
-        this.player = onlineProfile.getPlayer();
+        super(conv, onlineProfile.getPlayer());
         this.messages = new ArrayList<>();
 
         packetAdapter = new PacketAdapter(BetonQuest.getInstance(), ListenerPriority.LOWEST, getPacketTypes()) {
@@ -112,17 +107,10 @@ public class PacketInterceptor implements Interceptor, Listener {
         return packets;
     }
 
-    /**
-     * Sends a message that bypasses the interceptor.
-     */
-    @Override
-    public void sendMessage(final String message) {
-        sendMessage(TextComponent.fromLegacyText(message));
-    }
-
     @Override
     public void sendMessage(final ComponentLike message) {
-        player.sendMessage(message);
+        // TODO: I hope this works, needs testing to verify
+        player.sendMessage(AdventureComponentConverter.legacyToComponent(MESSAGE_PASSTHROUGH_TAG).append(message));
     }
 
     @Override

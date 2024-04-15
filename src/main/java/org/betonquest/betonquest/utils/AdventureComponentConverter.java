@@ -1,5 +1,6 @@
 package org.betonquest.betonquest.utils;
 
+import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
 
 import java.util.Locale;
@@ -12,7 +13,8 @@ import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
  * <p>Utilities for converting legacy text formatting to <a href="https://docs.advntr.dev/minimessage/format.html">
  * MiniMessage format</a>.</p>
  */
-public final class AdventureComponentConverter {
+@UtilityClass
+public class AdventureComponentConverter {
 
     /**
      * Pattern for legacy text formatting. Includes colors and text decorations.
@@ -55,9 +57,6 @@ public final class AdventureComponentConverter {
             Map.entry("o", "<i>"),
             Map.entry("r", "<reset>")
     );
-
-    private AdventureComponentConverter() {
-    }
 
     /**
      * <p>Checks for any legacy text formatting in the input String.</p>

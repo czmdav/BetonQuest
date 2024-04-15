@@ -2,31 +2,16 @@ package org.betonquest.betonquest.compatibility.redischat;
 
 import dev.unnm3d.redischat.api.RedisChatAPI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import net.kyori.adventure.text.ComponentLike;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.betonquest.betonquest.api.profiles.OnlineProfile;
 import org.betonquest.betonquest.conversation.Conversation;
 import org.betonquest.betonquest.conversation.Interceptor;
-import org.bukkit.entity.Player;
 
 import java.util.Objects;
 
 /**
  * Chat Interceptor that works with RedisChat.
  */
-public class RedisChatInterceptor implements Interceptor {
-
-    /**
-     * The conversation this interceptor acts for.
-     */
-    protected final Conversation conv;
-
-    /**
-     * The player whose chat is being intercepted.
-     */
-    protected final Player player;
-
+public class RedisChatInterceptor extends Interceptor {
     /**
      * RedisChatAPI instance.
      */
@@ -42,25 +27,9 @@ public class RedisChatInterceptor implements Interceptor {
      */
     @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE", justification = "false positive: Objects.requireNonNull(...)")
     public RedisChatInterceptor(final Conversation conv, final OnlineProfile onlineProfile) {
-        this.conv = conv;
-        this.player = onlineProfile.getPlayer();
+        super(conv, onlineProfile.getPlayer());
         this.api = Objects.requireNonNull(RedisChatAPI.getAPI());
         api.pauseChat(player);
-    }
-
-    @Override
-    public void sendMessage(final String message) {
-        player.spigot().sendMessage(TextComponent.fromLegacyText(message));
-    }
-
-    @Override
-    public void sendMessage(final ComponentLike message) {
-        player.sendMessage(message);
-    }
-
-    @Override
-    public void sendMessage(final BaseComponent... message) {
-        player.spigot().sendMessage(message);
     }
 
     @Override

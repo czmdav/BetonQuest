@@ -96,7 +96,6 @@ import org.betonquest.betonquest.conversation.ConversationIO;
 import org.betonquest.betonquest.conversation.ConversationResumer;
 import org.betonquest.betonquest.conversation.Interceptor;
 import org.betonquest.betonquest.conversation.InventoryConvIO;
-import org.betonquest.betonquest.conversation.NonInterceptingInterceptor;
 import org.betonquest.betonquest.conversation.SimpleConvIO;
 import org.betonquest.betonquest.conversation.SimpleInterceptor;
 import org.betonquest.betonquest.conversation.SlowTellrawConvIO;
@@ -1013,7 +1012,7 @@ public class BetonQuest extends JavaPlugin {
         registerConversationIO("slowtellraw", SlowTellrawConvIO.class);
 
         registerInterceptor("simple", SimpleInterceptor.class);
-        registerInterceptor("none", NonInterceptingInterceptor.class);
+        registerInterceptor("none", Interceptor.class);
 
         registerNotifyIO("suppress", SuppressNotifyIO.class);
         registerNotifyIO("chat", ChatNotifyIO.class);
