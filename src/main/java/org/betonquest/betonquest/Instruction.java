@@ -98,7 +98,7 @@ public class Instruction {
         return new Instruction(log, pack, identifier, instruction);
     }
 
-    public Instruction copy(final ObjectiveID newID) {
+    public Instruction copy(final ID newID) {
         return new Instruction(log, pack, newID, instruction);
     }
 
@@ -381,7 +381,7 @@ public class Instruction {
     }
 
     public BlockSelector getBlockSelector(final String string) throws InstructionParseException {
-        return new BlockSelector(string);
+        return string == null ? null : new BlockSelector(string);
     }
 
     public EntityType getEntity() throws InstructionParseException {

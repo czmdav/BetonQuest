@@ -39,14 +39,17 @@ give accurate results. Experiment with this objective a bit to make sure you've 
 
 To complete this objective the player must break or place the specified amount of blocks.
 
-| Parameter       | Syntax                                               | Default Value          | Explanation                                                                                                                                                                                                                                                               |
-|-----------------|------------------------------------------------------|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| _Block Type_    | [Block Selector](../Data-Formats.md#block-selectors) | :octicons-x-circle-16: | The block which must be broken / placed.                                                                                                                                                                                                                                  |
-| _Amount_        | Number                                               | :octicons-x-circle-16: | The amount of blocks to break / place. Less than 0 for breaking and more than 0 for placing blocks.                                                                                                                                                                       |
-| _Safety Check_  | Keyword (`noSafety`)                                 | Safety Check Enabled   | The Safety Check prevents faking the objective. The progress will be reduced when the player does to opposite of what they are supposed to do. Example: Player must break 10 blocks. They place 10 of their stored blocks. Now the total amount of blocks to break is 20. |
-| _Notifications_ | Keyword (`notify`)                                   | Disabled               | Displays messages to the player each time they progress the objective. Optionally with the notification interval after colon.                                                                                                                                             |
+| Parameter        | Syntax                                               | Default Value                                  | Explanation                                                                                                                                                                                                                                                               |
+|------------------|------------------------------------------------------|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| _Block Type_     | [Block Selector](../Data-Formats.md#block-selectors) | :octicons-x-circle-16:                         | The block which must be broken / placed.                                                                                                                                                                                                                                  |
+| _Amount_         | Number                                               | :octicons-x-circle-16:                         | The amount of blocks to break / place. Less than 0 for breaking and more than 0 for placing blocks.                                                                                                                                                                       |
+| _Safety Check_   | Keyword (`noSafety`)                                 | Safety Check Enabled                           | The Safety Check prevents faking the objective. The progress will be reduced when the player does to opposite of what they are supposed to do. Example: Player must break 10 blocks. They place 10 of their stored blocks. Now the total amount of blocks to break is 20. |
+| _Notifications_  | Keyword (`notify`)                                   | Disabled                                       | Displays messages to the player each time they progress the objective. Optionally with the notification interval after colon.                                                                                                                                             |
+| _Location_       | loc:location                                         | Optional. Default: none                        | Adds an optional location to the objective, only counting blocks broken/placed at the specific location.                                                                                                                                                                  |
+| _Region definer_ | region:location                                      | Optional. Default: none                        | Adds an optional second location to only count blocks broken/placed in a rectangle between the specified location and this location. This won't have an effect if parameter location isn't set.                                                                           |
+| _ignorecancel_   | Keyword (`ignorecancel`)                             | Protected blocks will not affect the objective | Allows the objective to progress, even if the event is cancelled by the Server. For example if the player is not allowed to build.                                                                                                                                        |
 
-
+  
 ```YAML
 objectives:
   breakLogs: "block LOG -16 events:reward notify"
@@ -390,13 +393,13 @@ This objective has three properties: `amount`, `left` and `total`. `amount` is t
 The player must kill the specified amount of entities (living creatures).
 All entities work, make sure to use their [correct types](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/entity/EntityType.html).
 
-| Parameter | Syntax                  | Default Value          | Explanation                                                                                                              |
-|-----------|-------------------------|------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| _type_    | ENTITY_TYPE,ENTITY_TYPE | :octicons-x-circle-16: | A list of entities, e.g. `ZOMBIE,SKELETON`.                                                                              |
-| _amount_  | Positive Number         | :octicons-x-circle-16: | Amount of mobs to kill in total.                                                                                         |
-| _name_    | name:text               | Disabled               | Only count named mobs. Spaces must be replaced with `_`.                                                                 |
-| _marked_  | marked:keyword          | Disabled               | Only count marked mobs. See the [spawn event](Events-List.md#spawn-mob-spawn) for more information. Supports `%player%`. |
-| _notify_  | notify:interval         | Disabled               | Display a message to the player each time they kill a mob. Optionally with the notification interval after colon.        |
+| Parameter | Syntax                  | Default Value          | Explanation                                                                                                             |
+|-----------|-------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| _type_    | ENTITY_TYPE,ENTITY_TYPE | :octicons-x-circle-16: | A list of entities, e.g. `ZOMBIE,SKELETON`.                                                                             |
+| _amount_  | Positive Number         | :octicons-x-circle-16: | Amount of mobs to kill in total.                                                                                        |
+| _name_    | name:text               | Disabled               | Only count named mobs. Spaces must be replaced with `_`.                                                                |
+| _marked_  | marked:keyword          | Disabled               | Only count marked mobs. See the [spawn event](Events-List.md#spawn-mob-spawn) for more information. Supports variables. |
+| _notify_  | notify:interval         | Disabled               | Display a message to the player each time they kill a mob. Optionally with the notification interval after colon.       |
 
 ``` YAML title="Example"
 objectives:
