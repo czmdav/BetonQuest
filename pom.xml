@@ -359,6 +359,11 @@
 
     <!-- only dependencies from maven central that are no MC Plugins -->
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.30</version>
+    </dependency>
+    <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>24.1.0</version>
@@ -834,6 +839,13 @@
           <version>3.10.1</version>
           <configuration>
             <release>${java.api.version}</release>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.30</version>
+              </path>
+            </annotationProcessorPaths>
           </configuration>
         </plugin>
         <plugin>

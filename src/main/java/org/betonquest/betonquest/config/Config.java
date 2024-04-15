@@ -1,6 +1,7 @@
 package org.betonquest.betonquest.config;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.kyori.adventure.text.Component;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.config.ConfigAccessor;
 import org.betonquest.betonquest.api.config.ConfigAccessorFactory;
@@ -14,6 +15,7 @@ import org.betonquest.betonquest.database.PlayerData;
 import org.betonquest.betonquest.exceptions.QuestRuntimeException;
 import org.betonquest.betonquest.modules.config.QuestManager;
 import org.betonquest.betonquest.notify.Notify;
+import org.betonquest.betonquest.utils.AdventureComponentConverter;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -117,6 +119,20 @@ public final class Config {
             result = ChatColor.translateAlternateColorCodes('&', result);
         }
         return result;
+    }
+
+    /**
+     * Retrieves the message from the configuration in specified language and
+     * replaces the variables as a Component
+     *
+     * @param lang      language in which the message should be retrieved
+     * @param message   name of the message to retrieve
+     * @param variables array of variables to replace
+     * @return message in that language, or message in English, or null if it
+     * does not exist
+     */
+    public static Component getMessageAsComponent(final String lang, final String message, final String... variables) {
+        return AdventureComponentConverter.legacyToComponent(getMessage(lang, message, variables));
     }
 
     /**

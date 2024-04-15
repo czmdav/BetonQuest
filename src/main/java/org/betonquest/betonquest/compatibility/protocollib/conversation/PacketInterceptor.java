@@ -8,6 +8,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import io.papermc.lib.PaperLib;
+import net.kyori.adventure.text.ComponentLike;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang3.ArrayUtils;
@@ -117,6 +118,11 @@ public class PacketInterceptor implements Interceptor, Listener {
     @Override
     public void sendMessage(final String message) {
         sendMessage(TextComponent.fromLegacyText(message));
+    }
+
+    @Override
+    public void sendMessage(final ComponentLike message) {
+        player.sendMessage(message);
     }
 
     @Override

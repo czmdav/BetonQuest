@@ -1,6 +1,7 @@
 package org.betonquest.betonquest.conversation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.kyori.adventure.text.Component;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.profiles.OnlineProfile;
 import org.betonquest.betonquest.config.Config;
@@ -20,6 +21,8 @@ import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
 /**
  * Base of all chat conversation outputs
@@ -163,6 +166,12 @@ public abstract class ChatConvIO implements ConversationIO, Listener {
     public void setNpcResponse(final String npcName, final String response) {
         this.npcName = npcName;
         this.npcText = response;
+    }
+
+    @Override
+    public void setNpcResponse(final String npcName, final Component response) {
+        this.npcName = npcName;
+        this.npcText = miniMessage().serialize(response);
     }
 
     @Override

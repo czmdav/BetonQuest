@@ -2,6 +2,7 @@ package org.betonquest.betonquest.conversation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.papermc.lib.PaperLib;
+import net.kyori.adventure.text.Component;
 import org.betonquest.betonquest.BetonQuest;
 import org.betonquest.betonquest.api.logger.BetonQuestLogger;
 import org.betonquest.betonquest.api.profiles.OnlineProfile;
@@ -9,7 +10,11 @@ import org.betonquest.betonquest.config.Config;
 import org.betonquest.betonquest.utils.LocalChatPaginator;
 import org.betonquest.betonquest.utils.PlayerConverter;
 import org.betonquest.betonquest.utils.Utils;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static net.kyori.adventure.text.minimessage.MiniMessage.miniMessage;
 
 /**
  * Inventory GUI for conversations.
@@ -133,6 +140,12 @@ public class InventoryConvIO implements Listener, ConversationIO {
     public void setNpcResponse(final String npcName, final String response) {
         this.npcName = npcName;
         this.response = Utils.replaceReset(response, npcTextColor);
+    }
+
+    @Override
+    public void setNpcResponse(final String npcName, final Component response) {
+        this.npcName = npcName;
+        this.response = miniMessage().serialize(response); // TODO: use component instead of String
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.betonquest.betonquest.conversation;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.kyori.adventure.text.ComponentLike;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang3.tuple.Pair;
@@ -442,6 +443,14 @@ public class Conversation implements Listener {
     public void sendMessage(final BaseComponent... message) {
         if (interceptor == null) {
             player.spigot().sendMessage(message);
+        } else {
+            interceptor.sendMessage(message);
+        }
+    }
+
+    public void sendMessage(final ComponentLike message) {
+        if (interceptor == null) {
+            player.sendMessage(message);
         } else {
             interceptor.sendMessage(message);
         }

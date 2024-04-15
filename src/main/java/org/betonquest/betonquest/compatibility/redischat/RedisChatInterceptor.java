@@ -2,6 +2,7 @@ package org.betonquest.betonquest.compatibility.redischat;
 
 import dev.unnm3d.redischat.api.RedisChatAPI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import net.kyori.adventure.text.ComponentLike;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.betonquest.betonquest.api.profiles.OnlineProfile;
@@ -50,6 +51,11 @@ public class RedisChatInterceptor implements Interceptor {
     @Override
     public void sendMessage(final String message) {
         player.spigot().sendMessage(TextComponent.fromLegacyText(message));
+    }
+
+    @Override
+    public void sendMessage(final ComponentLike message) {
+        player.sendMessage(message);
     }
 
     @Override

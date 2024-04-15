@@ -1,5 +1,7 @@
 package org.betonquest.betonquest.conversation;
 
+import net.kyori.adventure.text.Component;
+
 /**
  * Used to display messages in conversation
  */
@@ -12,7 +14,17 @@ public interface ConversationIO {
      * @param npcName  the name of the NPC
      * @param response the text the NPC chose
      */
+    @Deprecated(forRemoval = true)
     void setNpcResponse(String npcName, String response);
+
+    /**
+     * Set the component of response chosen by the NPC. Should be called once per
+     * conversation cycle.
+     *
+     * @param npcName  the name of the NPC
+     * @param response the component the NPC chose
+     */
+    void setNpcResponse(String npcName, Component response);
 
     /**
      * Adds the text of the player option. Should be called for each option in a
